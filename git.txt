@@ -1,0 +1,46 @@
+-> List files
+	>>	ls -la / filename(optional)
+
+-> Current Directory
+	>>	pwd
+
+-> Change directory
+	>>	cd e:
+
+-> Help
+	>>	git log help
+
+-> Initialization
+	>>	git init
+
+-> Version
+	>>	git version
+
+-> Add Changes
+	>>	git add .(. -> this directory)
+
+-> Commit Changes to the repository
+	>>	git commit -m "Initial Commit" (-m -> message)
+
+-> Commit Message
+	>>	present tense
+	>>	"[css,js]", "bugfix: ", "#38405 - " (track number)
+
+-> Commit Log
+	>> git log
+	>> git log -n 5 (limits number of commits)
+	>> git log --(since/until)=2016-05-15
+	>> git log --author="Bhupesh"
+	>> git log --grep="Init"
+
+-> Architecture
+	-> Three tree architecture
+		i. Repository (Changes Commited)
+		ii. Staging Index (Add files and Ready for Commit)
+		iii. Working (Your PC)
+
+-> Git generates a checksum for each change setusing SHA-1 hash algorithm
+-> It is 40 characters long and consists of hexadecimal string
+
+-> Status between three different trees
+	>> git status
