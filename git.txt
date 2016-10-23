@@ -44,3 +44,9 @@
 
 -> Status between three different trees
 	>> git status
+
+-> Edit Files
+	>> git status
+	>> git add filename
+	>> git commit -m "Made changes to the files"
+
