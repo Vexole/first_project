@@ -50,3 +50,49 @@
 	>> git add filename
 	>> git commit -m "Made changes to the files"
 
+-> View Changes
+	>> git diff
+
+-> Delete Files and Keep Track of Changes
+	>> git rm filename (if deleted from explorer)
+	>> git commit -m "Deleted"
+
+	>> git rm filename
+	>> git commit -m "Remove the file"
+
+-> Moving and Renaming Files
+	>> git add newfile
+	>> git rm oldfile
+	>> git commit -m "Renamed"
+
+	>> git mv first.txt second.txt
+	>> git status
+	>> git commit -m "Rename and Move is similar"
+
+	>> git mv filename directory/filename
+	>> git commit -m "reorganization"
+
+-> Undo Changes (Repository Tree)
+	>> git checkout -- filename (current branch) 
+
+-> Undo Changes (Staging Tree)
+	>> git reset HEAD filename
+
+-> Undo Commits
+	>> git addfilename
+	>> git -- amend -m "Undoing"
+
+-> Revert
+	>> git revert SHA-1
+
+-> Undo Multiple Commmits
+	>> git reset
+		-> soft : does not change staging index or working directory
+		-> mixed(default): changes staging index but not working directory
+		-> hard : changes staging index and working directory
+
+	>> git reset --soft SHA-1(HEAD)
+	>> git diff --staged
+	>> git commit
+
+	>> git reset --mixed SHA-1
